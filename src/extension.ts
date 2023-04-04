@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
 import { execSync } from 'child_process';
+import * as fs from 'fs'
 
 let myStatusBarItem: vscode.StatusBarItem;
 const EVENTS = {
@@ -9,8 +10,14 @@ const EVENTS = {
 // 初始化状态栏
 const initStatusBar = async (context: vscode.ExtensionContext) => {
 	const { subscriptions } = context;
-	const userName = await execSync('git config user.name').toString().trim();
-	const userEmail = await execSync('git config user.email').toString().trim();
+	const currentEditorPath = vscode.window.activeTextEditor?.document.uri.path
+	const workDir = currentEditorPath?.slice(0, currentEditorPath.lastIndexOf('/'))
+	const userName = await execSync('git config user.name', {
+		cwd: workDir
+	}).toString().trim();
+	const userEmail = await execSync('git config user.email', {
+		cwd: workDir
+	}).toString().trim();
 	myStatusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 300);
 	myStatusBarItem.command = EVENTS.use;  // 点击时执行命令
 	myStatusBarItem.text = `${userName}, ${userEmail}`;
