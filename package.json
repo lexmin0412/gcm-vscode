@@ -3,13 +3,20 @@
   "displayName": "gcm-vscode",
   "description": "gcm vscode extension",
   "version": "0.0.1",
+  "publisher": "lexmin0412",
   "engines": {
     "vscode": "^1.75.0"
   },
   "categories": [
     "Other"
   ],
-  "activationEvents": ["*"],
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/lexmin0412/gcm-vscode"
+  },
+  "activationEvents": [
+    "*"
+  ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
@@ -28,7 +35,7 @@
     "test": "node ./out/test/runTest.js"
   },
   "devDependencies": {
-    "@types/vscode": "^1.77.0",
+    "@types/vscode": "^1.75.0",
     "@types/glob": "^8.1.0",
     "@types/mocha": "^10.0.1",
     "@types/node": "16.x",
